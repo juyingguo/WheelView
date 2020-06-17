@@ -118,4 +118,8 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
+3.modify 
+	3.1 myWheelView.setClickToPosition(true); jar 中该方法没有。重新生成jar.
+	3.2 add generage jar code  in  build.gradle 
+	3.3 change lambda code to common code.
+		

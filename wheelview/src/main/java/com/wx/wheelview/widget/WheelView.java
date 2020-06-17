@@ -28,6 +28,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -115,9 +116,16 @@ public class WheelView<T> extends ListView implements IWheelView<T> {
         }
     };
 
-    private OnTouchListener mTouchListener = (v, event) -> {
+    /*private OnTouchListener mTouchListener = (v, event) -> {
         v.getParent().requestDisallowInterceptTouchEvent(true);
         return false;
+    };*/
+    private OnTouchListener mTouchListener = new OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            view.getParent().requestDisallowInterceptTouchEvent(true);
+            return false;
+        }
     };
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {

@@ -127,8 +127,20 @@ public class MainActivity extends Activity {
         simpleWheelView.setSkin(WheelView.Skin.None);
         simpleWheelView.setLoop(true);
         simpleWheelView.setWheelClickable(true);
-        simpleWheelView.setOnWheelItemClickListener((position, o) -> WheelUtils.log("click:" + position));
-        simpleWheelView.setOnWheelItemSelectedListener((WheelView.OnWheelItemSelectedListener<WheelData>) (position, data) -> WheelUtils.log("selected:" + position));
+//        simpleWheelView.setOnWheelItemClickListener((position, o) -> WheelUtils.log("click:" + position));
+        simpleWheelView.setOnWheelItemClickListener(new WheelView.OnWheelItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object o) {
+                WheelUtils.log("click:" + position);
+            }
+        });
+//        simpleWheelView.setOnWheelItemSelectedListener((WheelView.OnWheelItemSelectedListener<WheelData>) (position, data) -> WheelUtils.log("selected:" + position));
+        simpleWheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectedListener() {
+            @Override
+            public void onItemSelected(int position, Object o) {
+                WheelUtils.log("selected:" + position);
+            }
+        });
 
         WheelView myWheelView = findViewById(R.id.my_wheelview);
         myWheelView.setWheelAdapter(new MyWheelAdapter(this));
