@@ -53,8 +53,8 @@ public class MainActivity extends Activity {
      * 联动WheelView
      */
     private void initWheel1() {
-        WheelView mainWheelView = findViewById(R.id.main_wheelview);
-        mainWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> mainWheelView = findViewById(R.id.main_wheelview);
+        mainWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         mainWheelView.setSkin(WheelView.Skin.Holo);
         mainWheelView.setWheelData(createMainDatas());
         WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
@@ -62,16 +62,16 @@ public class MainActivity extends Activity {
         style.textSize = 16;
         mainWheelView.setStyle(style);
 
-        WheelView subWheelView = findViewById(R.id.sub_wheelview);
-        subWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> subWheelView = findViewById(R.id.sub_wheelview);
+        subWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         subWheelView.setSkin(WheelView.Skin.Holo);
         subWheelView.setWheelData(createSubDatas().get(createMainDatas().get(mainWheelView.getSelection())));
         subWheelView.setStyle(style);
         mainWheelView.join(subWheelView);
         mainWheelView.joinDatas(createSubDatas());
 
-        WheelView childWheelView = findViewById(R.id.child_wheelview);
-        childWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> childWheelView = findViewById(R.id.child_wheelview);
+        childWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         childWheelView.setSkin(WheelView.Skin.Holo);
         childWheelView.setWheelData(createChildDatas().get(createSubDatas().get(createMainDatas().get(mainWheelView
                 .getSelection())).get(subWheelView.getSelection())));
@@ -84,8 +84,8 @@ public class MainActivity extends Activity {
      * holo皮肤
      */
     private void initWheel2() {
-        WheelView hourWheelView = findViewById(R.id.hour_wheelview);
-        hourWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> hourWheelView = findViewById(R.id.hour_wheelview);
+        hourWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         hourWheelView.setSkin(WheelView.Skin.Holo);
         hourWheelView.setWheelData(createHours());
         WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
@@ -96,15 +96,15 @@ public class MainActivity extends Activity {
         hourWheelView.setStyle(style);
         hourWheelView.setExtraText("时", Color.parseColor("#0288ce"), 40, 70, true);
 
-        WheelView minuteWheelView = findViewById(R.id.minute_wheelview);
-        minuteWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> minuteWheelView = findViewById(R.id.minute_wheelview);
+        minuteWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         minuteWheelView.setSkin(WheelView.Skin.Holo);
         minuteWheelView.setWheelData(createMinutes());
         minuteWheelView.setStyle(style);
         minuteWheelView.setExtraText("分", Color.parseColor("#0288ce"), 40, 70, true);
 
-        WheelView secondWheelView = findViewById(R.id.second_wheelview);
-        secondWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> secondWheelView = findViewById(R.id.second_wheelview);
+        secondWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         secondWheelView.setSkin(WheelView.Skin.Holo);
         secondWheelView.setWheelData(createMinutes());
         secondWheelView.setStyle(style);
@@ -115,8 +115,8 @@ public class MainActivity extends Activity {
      * common皮肤、图文混排无皮肤、自定义布局
      */
     private void initWheel3() {
-        WheelView commonWheelView = findViewById(R.id.common_wheelview);
-        commonWheelView.setWheelAdapter(new ArrayWheelAdapter(this));
+        WheelView<String> commonWheelView = findViewById(R.id.common_wheelview);
+        commonWheelView.setWheelAdapter(new ArrayWheelAdapter<String>(this));
         commonWheelView.setSkin(WheelView.Skin.Common);
         commonWheelView.setWheelData(createArrays());
 
@@ -142,18 +142,33 @@ public class MainActivity extends Activity {
             }
         });
 
+        /////第二组第三个wheelview
         WheelView myWheelView = findViewById(R.id.my_wheelview);
         myWheelView.setWheelAdapter(new MyWheelAdapter(this));
-        myWheelView.setWheelSize(5);
+        myWheelView.setWheelSize(3);
         myWheelView.setSkin(WheelView.Skin.Holo);
         myWheelView.setWheelData(createArrays());
-        myWheelView.setSelection(2);
+        myWheelView.setSelection(8);
         myWheelView.setClickToPosition(true);
+        myWheelView.setWheelClickable(true);
         WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
         style.backgroundColor = Color.YELLOW;
         style.textColor = Color.DKGRAY;
-        style.selectedTextColor = Color.GREEN;
+        style.selectedTextSize = 26;
+        style.selectedTextColor = Color.BLACK;
         myWheelView.setStyle(style);
+        myWheelView.setOnWheelItemSelectedListener(new WheelView.OnWheelItemSelectedListener<String>() {
+            @Override
+            public void onItemSelected(int position, String o) {
+                WheelUtils.log("onItemSelected,position:" + position + ",o:" + o.toString());
+            }
+        });
+        myWheelView.setOnWheelItemClickListener(new WheelView.OnWheelItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object o) {
+                WheelUtils.log("onItemClick,position:" + position + ",o:" + o.toString());
+            }
+        });
     }
 
     public void showDialog(View view) {
